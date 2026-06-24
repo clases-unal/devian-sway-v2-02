@@ -408,6 +408,25 @@ mencionaste que usarás libvirt/QEMU/KVM para tus máquinas virtuales —
 sin pertenecer a ese grupo, no podrías gestionarlas sin `sudo` en cada
 comando.
 
+```bash
+# 1. Crear el grupo libvirt manualmente para que useradd no proteste
+groupadd libvirt
+
+# 2. Crear tu usuario (reemplaza "tu_usuario" y "Tu Nombre" con tus datos reales)
+useradd -m -G sudo,adm,libvirt -s /bin/bash -c "Tu Nombre" tu_usuario
+
+# 3. Asignar la contraseña a tu nuevo usuario
+passwd tu_usuario
+
+# 4. Crear el enlace simbólico hacia el subvolumen de respaldos
+ln -s /home/Respaldado /home/tu_usuario/Respaldado
+chown -h tu_usuario:tu_usuario /home/tu_usuario/Respaldado
+
+# 5. Crear las subcarpetas internas y ajustar permisos finales de la ruta completa
+mkdir -p /home/Respaldado/{Documentos,Proyectos}
+chown -R tu_usuario:tu_usuario /home/Respaldado
+```
+
 ---
 
 ## Paso 12 — Instalar y configurar GRUB
