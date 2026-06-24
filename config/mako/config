@@ -1,0 +1,29 @@
+# config/mako/config
+#
+# Configuración del demonio de notificaciones de escritorio (mako).
+# Formato: pares "clave=valor", una por línea. Las secciones entre
+# corchetes (criteria) permiten reglas específicas, ej. por app o urgencia.
+
+# --- Apariencia general --------------------------------------------------
+font=JetBrainsMono Nerd Font 10
+background-color=#1d1f21cc
+text-color=#c5c8c6
+border-color=#373b41
+border-size=2
+border-radius=6
+padding=10
+margin=10
+
+# --- Posición y comportamiento -------------------------------------------
+anchor=top-right
+default-timeout=5000
+ignore-timeout=0
+max-visible=5
+
+# --- Historial (notificaciones descartadas se guardan para revisar) -----
+max-history=20
+
+# --- Regla especial: notificaciones urgentes no expiran solas -----------
+[urgency=critical]
+border-color=#cc6666
+default-timeout=0

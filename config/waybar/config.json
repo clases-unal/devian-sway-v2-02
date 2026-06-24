@@ -1,0 +1,131 @@
+{
+  // ---------------------------------------------------------------------
+  // config/waybar/config.json
+  //
+  // Barra de estado. Cada módulo está comentado con qué gestiona y qué
+  // programa lo respalda. Las claves "modules-left/center/right" definen
+  // SOLO el orden visual; la configuración de cada módulo va más abajo.
+  // ---------------------------------------------------------------------
+
+  "layer": "top",
+  "position": "top",
+  "height": 32,
+  "spacing": 6,
+
+  // Espacios de trabajo y modo activo de sway (ej. "Sistema: ...")
+  "modules-left": ["sway/workspaces", "sway/mode"],
+
+  // Título de la ventana enfocada
+  "modules-center": ["sway/window"],
+
+  // Indicadores de sistema y hardware, de izquierda a derecha en pantalla
+  "modules-right": [
+    "tray",
+    "backlight",
+    "pulseaudio",
+    "bluetooth",
+    "network",
+    "cpu",
+    "memory",
+    "battery",
+    "clock"
+  ],
+
+  // --- Espacios de trabajo ----------------------------------------------
+  // Gestiona: indicador visual de qué espacio de trabajo está activo.
+  // Programas: sway (vía IPC, sin paquete adicional).
+  "sway/workspaces": {
+    "disable-scroll": false,
+    "all-outputs": true
+  },
+
+  // --- Modo activo (ej. al entrar al modo "Sistema") --------------------
+  "sway/mode": {
+    "format": "  {}"
+  },
+
+  // --- Título de ventana enfocada ----------------------------------------
+  "sway/window": {
+    "max-length": 60
+  },
+
+  // --- Bandeja de iconos (bluetooth/redes con applets propios) -----------
+  // Gestiona: iconos de aplicaciones en segundo plano (nm-applet,
+  // blueman-applet, etc.) que se anclan a la bandeja del sistema.
+  // Programas: ninguno propio; aloja a otros (nm-applet, blueman-applet).
+  "tray": {
+    "icon-size": 18,
+    "spacing": 8
+  },
+
+  // --- Brillo de pantalla -------------------------------------------------
+  // Gestiona: indicador visual de brillo, con scroll para ajustarlo.
+  // Programas: brightnessctl.
+  "backlight": {
+    "format": "☀ {percent}%",
+    "on-scroll-up": "brightnessctl set +5%",
+    "on-scroll-down": "brightnessctl set 5%-"
+  },
+
+  // --- Sonido (altavoces/micrófono) ---------------------------------------
+  // Gestiona: indicador de volumen, mute, y dispositivo bluetooth de audio.
+  // Programas: pipewire-pulse (backend), pavucontrol (al hacer clic).
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-muted": "🔇 Silenciado",
+    "format-icons": {
+      "headphone": "🎧",
+      "default": ["🔈", "🔉", "🔊"]
+    },
+    "on-click": "pavucontrol"
+  },
+
+  // --- Bluetooth -----------------------------------------------------------
+  // Gestiona: estado de bluetooth (encendido/apagado/conectado).
+  // Programas: blueman (al hacer clic abre el gestor gráfico).
+  "bluetooth": {
+    "format": "󰂯 {status}",
+    "format-connected": "󰂯 {device_alias}",
+    "format-disabled": "󰂲",
+    "on-click": "blueman-manager"
+  },
+
+  // --- Red (wifi/ethernet) -------------------------------------------------
+  // Gestiona: estado de conexión y señal wifi/ethernet.
+  // Programas: network-manager (backend), nm-applet (clic derecho ya
+  // disponible vía bandeja, este módulo es solo indicador).
+  "network": {
+    "format-wifi": "📶 {essid} ({signalStrength}%)",
+    "format-ethernet": "🌐 Conectado",
+    "format-disconnected": "⚠ Sin conexión",
+    "tooltip-format": "{ifname}: {ipaddr}/{cidr}"
+  },
+
+  // --- CPU -------------------------------------------------------------
+  "cpu": {
+    "format": "💻 {usage}%",
+    "interval": 5
+  },
+
+  // --- Memoria RAM ---------------------------------------------------------
+  "memory": {
+    "format": "🧠 {percentage}%",
+    "interval": 5
+  },
+
+  // --- Batería (si aplica; en VM normalmente no aparece o muestra 100%) --
+  "battery": {
+    "format": "{icon} {capacity}%",
+    "format-icons": ["", "", "", "", ""],
+    "states": {
+      "warning": 30,
+      "critical": 15
+    }
+  },
+
+  // --- Reloj -----------------------------------------------------------
+  "clock": {
+    "format": "🕐 {:%H:%M  %d/%m/%Y}",
+    "tooltip-format": "<tt><small>{calendar}</small></tt>"
+  }
+}

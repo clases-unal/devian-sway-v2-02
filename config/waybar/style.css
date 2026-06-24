@@ -1,0 +1,73 @@
+/*
+ * config/waybar/style.css
+ *
+ * Estilo visual de la barra de estado. Tema oscuro simple, consistente
+ * con el fondo sólido definido en config/sway/config.
+ */
+
+* {
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 13px;
+    min-height: 0;
+}
+
+window#waybar {
+    background-color: #1d1f21;
+    color: #c5c8c6;
+}
+
+#workspaces button {
+    padding: 0 8px;
+    color: #c5c8c6;
+    background-color: transparent;
+}
+
+#workspaces button.focused {
+    background-color: #373b41;
+    border-radius: 4px;
+}
+
+#workspaces button.urgent {
+    background-color: #cc6666;
+    border-radius: 4px;
+}
+
+#mode {
+    background-color: #f0c674;
+    color: #1d1f21;
+    padding: 0 10px;
+    border-radius: 4px;
+}
+
+#window {
+    color: #c5c8c6;
+}
+
+#tray,
+#backlight,
+#pulseaudio,
+#bluetooth,
+#network,
+#cpu,
+#memory,
+#battery,
+#clock {
+    padding: 0 10px;
+    margin: 0 2px;
+}
+
+#battery.warning {
+    color: #f0c674;
+}
+
+#battery.critical {
+    color: #cc6666;
+}
+
+#network.disconnected {
+    color: #cc6666;
+}
+
+#pulseaudio.muted {
+    color: #969896;
+}

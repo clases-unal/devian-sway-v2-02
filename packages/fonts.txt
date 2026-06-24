@@ -1,0 +1,18 @@
+# =============================================================================
+# packages/fonts.txt
+# =============================================================================
+# IMPORTANTE: este archivo está vacío de paquetes apt a propósito.
+#
+# JetBrainsMono Nerd Font NO está empaquetada en los repositorios oficiales
+# de Debian (los "Nerd Fonts" son releases de GitHub, no paquetes .deb).
+# Por eso su instalación se hace en un script dedicado:
+#
+#   scripts/install_fonts.sh
+#
+# que descarga el release oficial desde GitHub (ryanoasis/nerd-fonts) y la
+# coloca en ~/.local/share/fonts/, seguido de fc-cache para registrarla.
+#
+# El gestor de fuentes (font-manager) SÍ es un paquete apt normal y está
+# listado en packages/base.txt, ya que es una herramienta del sistema, no
+# una fuente en sí.
+# =============================================================================

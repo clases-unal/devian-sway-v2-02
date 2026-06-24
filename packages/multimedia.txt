@@ -1,0 +1,29 @@
+# =============================================================================
+# packages/multimedia.txt
+# =============================================================================
+# Reproducción de video/audio, edición de audio, y codecs (libres y
+# propietarios) necesarios para que todo lo anterior funcione sin huecos.
+#
+# Nota sobre codecs: los paquetes gstreamer1.0-plugins-{good,bad,ugly} están
+# en el repositorio "main" de Debian (no requieren contrib/non-free), e
+# incluyen soporte para mp3, h264 y la mayoría de formatos propietarios
+# comunes. No es necesario modificar /etc/apt/sources.list para esta lista.
+# =============================================================================
+
+# --- Reproductor de video/audio -------------------------------------------
+vlc
+
+# --- Editor de audio ---------------------------------------------------
+audacity
+
+# --- Codecs y backend multimedia (usado por VLC, navegadores, etc.) ------
+ffmpeg
+gstreamer1.0-plugins-base
+gstreamer1.0-plugins-good
+gstreamer1.0-plugins-bad
+gstreamer1.0-plugins-ugly
+gstreamer1.0-libav
+gstreamer1.0-pipewire
+
+# --- Visor de imágenes ligero (complementa a nemo, que no previsualiza) -
+imv

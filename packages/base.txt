@@ -1,0 +1,85 @@
+# =============================================================================
+# packages/base.txt
+# =============================================================================
+# Paquetes base del sistema: sway + herramientas del compositor + gestión de
+# hardware esencial (pantalla, redes, sonido, acceso, dispositivos externos).
+#
+# Formato: un paquete por línea. Las líneas que empiezan con "#" son
+# comentarios de sección y se ignoran al instalar (ver sway.sh).
+# =============================================================================
+
+# --- Sway: compositor y utilidades núcleo --------------------------------
+sway
+swaybg
+swaylock
+swayidle
+xwayland
+wayland-protocols
+wl-clipboard
+grim
+slurp
+wf-recorder
+
+# --- Buscador de aplicaciones (launcher) -----------------------------------
+wofi
+
+# --- Barra de estado ---------------------------------------------------
+waybar
+
+# --- Notificaciones --------------------------------------------------------
+mako-notifier
+
+# --- Menú gráfico de apagado/reinicio/suspensión/cierre de sesión --------
+wlogout
+
+# --- Emulador de terminal ----------------------------------------------
+kitty
+
+# --- Login manager (greeter) --------------------------------------------
+greetd
+tuigreet
+
+# --- Polkit (autenticación gráfica para acciones privilegiadas) -----------
+mate-polkit
+
+# --- Gestión de pantalla: brillo y calibración de color ------------------
+brightnessctl
+wdisplays
+gammastep
+
+# --- Redes: wifi, ethernet, bluetooth --------------------------------------
+network-manager
+network-manager-gnome
+blueman
+
+# --- Sonido: altavoces, micrófonos, entradas/salidas de audio ------------
+pipewire
+pipewire-audio
+pipewire-pulse
+wireplumber
+pavucontrol
+pamixer
+
+# --- Acceso: teclado, cámara, thunderbolt ---------------------------------
+xdg-desktop-portal-wlr
+fwupd
+bolt
+cheese
+
+# --- Dispositivos externos: memorias USB, pantallas externas ------------
+udisks2
+gvfs
+gvfs-backends
+
+# --- Gestor de fuentes tipográficas ----------------------------------------
+font-manager
+
+# --- Servicios adicionales: flatpak ----------------------------------------
+flatpak
+
+# --- Herramientas de archivos (gestor de archivos gráfico) ----------------
+nemo
+
+# --- xdg-user-dirs: crea Downloads/Documents/Pictures/etc en $HOME -------
+xdg-user-dirs
+xdg-user-dirs-gtk

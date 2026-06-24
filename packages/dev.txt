@@ -1,0 +1,27 @@
+# =============================================================================
+# packages/dev.txt
+# =============================================================================
+# Herramientas de desarrollo y edición de texto.
+# =============================================================================
+
+# --- Control de versiones y transferencia de archivos ---------------------
+git
+curl
+wget
+
+# --- Python (intérprete + gestor de paquetes + entornos virtuales) -------
+python3
+python3-pip
+python3-venv
+
+# --- Editor de texto general, potente, con plugins --------------------
+kate
+
+# --- Editor/visor de Markdown con vista previa en vivo lado a lado -------
+ghostwriter
+
+# --- Herramientas de compilación básicas (necesarias para compilar
+# software desde fuente ocasionalmente; no es un metapaquete completo
+# de build-essential porque no se mencionó como requerimiento explícito,
+# pero git/make suelen necesitarlas) ---------------------------------------
+build-essential

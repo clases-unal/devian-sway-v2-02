@@ -1,0 +1,331 @@
+#
+# config/sway/config
+#
+# Configuración principal de Sway. Cada bloque está comentado indicando
+# QUÉ gestiona y QUÉ PROGRAMAS usa, según lo pedido en el proyecto.
+#
+# Para ver TODOS los atajos de teclado activos en cualquier momento,
+# usa Super+K (abre una terminal kitty flotante con el listado generado
+# en vivo desde este mismo archivo, vía scripts/generate_shortcuts.sh).
+#
+
+### ------------------------------------------------------------------
+### VARIABLES BASE
+### ------------------------------------------------------------------
+# Gestiona: nombres de programas usados como variables, para no repetir
+# rutas/comandos largos en todo el archivo.
+# Programas: kitty (terminal), wofi (launcher).
+
+set $mod Mod4
+set $term kitty
+set $menu wofi --show drun
+
+### ------------------------------------------------------------------
+### TECLADO: layout en inglés internacional (us intl)
+### ------------------------------------------------------------------
+# Gestiona: distribución de teclado físico ANSI/US con soporte de
+# caracteres internacionales (acentos, ñ, etc. vía teclas muertas).
+# Programas: xkbcommon (integrado en sway, sin paquete adicional).
+
+input "type:keyboard" {
+    xkb_layout "us(intl)"
+}
+
+### ------------------------------------------------------------------
+### APUNTADOR / TOUCHPAD
+### ------------------------------------------------------------------
+# Gestiona: comportamiento básico de touchpad (si existe) y mouse.
+# Programas: libinput (integrado en sway).
+
+input "type:touchpad" {
+    tap enabled
+    natural_scroll enabled
+}
+
+### ------------------------------------------------------------------
+### SALIDA / FONDO DE PANTALLA
+### ------------------------------------------------------------------
+# Gestiona: fondo de pantalla en todas las salidas conectadas.
+# Programas: swaybg.
+# NOTA: edita la ruta de la imagen según tu gusto; "fill" mantiene
+# proporción recortando bordes si es necesario.
+
+output * bg #1d1f21 solid_color
+
+### ------------------------------------------------------------------
+### GESTIÓN DE MÚLTIPLES PANTALLAS (monitores externos)
+### ------------------------------------------------------------------
+# Gestiona: detección y configuración de salidas de video externas
+# (HDMI, DisplayPort, Thunderbolt). El atajo abre un controlador
+# gráfico para posicionar/activar/desactivar monitores sin editar
+# este archivo a mano.
+# Programas: wdisplays.
+
+bindsym $mod+p exec wdisplays  # Abrir gestor gráfico de pantallas externas
+
+### ------------------------------------------------------------------
+### FUENTE TIPOGRÁFICA DE LA INTERFAZ DE SWAY (no de apps)
+### ------------------------------------------------------------------
+# Gestiona: tipografía usada en bordes de ventana, barra, etc.
+# Programas: JetBrainsMono Nerd Font (instalada vía scripts/install_fonts.sh).
+
+font pango:JetBrainsMono Nerd Font 10
+
+### ------------------------------------------------------------------
+### BUSCADOR DE APLICACIONES (launcher)
+### ------------------------------------------------------------------
+# Gestiona: lanzar aplicaciones instaladas mostrando una lista buscable.
+# Programas: wofi.
+
+bindsym $mod+d exec $menu  # Abrir buscador de aplicaciones
+
+### ------------------------------------------------------------------
+### TERMINAL
+### ------------------------------------------------------------------
+# Gestiona: apertura de emulador de terminal.
+# Programas: kitty.
+
+bindsym $mod+Return exec $term  # Abrir terminal
+
+### ------------------------------------------------------------------
+### LISTADO DE ATAJOS DE TECLADO (autoactualizable)
+### ------------------------------------------------------------------
+# Gestiona: muestra TODOS los bindsym/bindswitch de este archivo en una
+# terminal flotante. Se "autoactualiza" porque lee este config en vivo
+# cada vez que se invoca; no requiere mantenimiento manual.
+# Programas: kitty, less, scripts/generate_shortcuts.sh.
+
+bindsym $mod+k exec kitty --class=floating_shortcuts --title="Atajos de teclado" -e bash -c "~/.config/sway/scripts/generate_shortcuts.sh | less -R"  # Ver todos los atajos de teclado
+
+for_window [app_id="floating_shortcuts"] floating enable, resize set 800 600, move position center
+
+### ------------------------------------------------------------------
+### CONTROL DE VENTANAS: foco, movimiento, cierre
+### ------------------------------------------------------------------
+# Gestiona: navegación y reorganización de ventanas dentro del tiling.
+# Programas: ninguno externo, control nativo de sway.
+
+bindsym $mod+Shift+q kill  # Cerrar ventana activa
+
+# Desplazamiento entre ventanas (estilo flechas)
+bindsym $mod+Left focus left  # Enfocar ventana a la izquierda
+bindsym $mod+Down focus down  # Enfocar ventana abajo
+bindsym $mod+Up focus up  # Enfocar ventana arriba
+bindsym $mod+Right focus right  # Enfocar ventana a la derecha
+
+# Desplazamiento entre ventanas (estilo vim: hjkl, sin $mod+k por
+# conflicto deliberado con el listado de atajos definido arriba, y
+# sin $mod+l por conflicto deliberado con "bloquear pantalla" más abajo;
+# usa las flechas $mod+Up/Down/Left/Right si prefieres vim-style completo)
+bindsym $mod+h focus left  # Enfocar ventana a la izquierda (vim)
+bindsym $mod+j focus down  # Enfocar ventana abajo (vim)
+
+# Mover ventanas dentro del layout
+bindsym $mod+Shift+Left move left  # Mover ventana a la izquierda
+bindsym $mod+Shift+Down move down  # Mover ventana abajo
+bindsym $mod+Shift+Up move up  # Mover ventana arriba
+bindsym $mod+Shift+Right move right  # Mover ventana a la derecha
+
+# Distribución de paneles
+bindsym $mod+b splith  # Dividir panel horizontalmente
+bindsym $mod+v splitv  # Dividir panel verticalmente
+bindsym $mod+f fullscreen  # Pantalla completa para la ventana activa
+bindsym $mod+Shift+space floating toggle  # Alternar ventana flotante/anclada
+bindsym $mod+space focus mode_toggle  # Alternar foco entre flotante y tiling
+
+# Desplazamiento entre espacios de trabajo (workspaces)
+bindsym $mod+1 workspace number 1  # Ir al espacio de trabajo 1
+bindsym $mod+2 workspace number 2  # Ir al espacio de trabajo 2
+bindsym $mod+3 workspace number 3  # Ir al espacio de trabajo 3
+bindsym $mod+4 workspace number 4  # Ir al espacio de trabajo 4
+bindsym $mod+5 workspace number 5  # Ir al espacio de trabajo 5
+
+bindsym $mod+Shift+1 move container to workspace number 1  # Mover ventana al espacio 1
+bindsym $mod+Shift+2 move container to workspace number 2  # Mover ventana al espacio 2
+bindsym $mod+Shift+3 move container to workspace number 3  # Mover ventana al espacio 3
+bindsym $mod+Shift+4 move container to workspace number 4  # Mover ventana al espacio 4
+bindsym $mod+Shift+5 move container to workspace number 5  # Mover ventana al espacio 5
+
+### ------------------------------------------------------------------
+### RECARGAR / SALIR DE SWAY
+### ------------------------------------------------------------------
+# Gestiona: recarga de configuración en caliente y salida de sesión.
+# Programas: ninguno externo, control nativo de sway.
+
+bindsym $mod+Shift+c reload  # Recargar configuración de sway
+bindsym $mod+Shift+e exec swaynag -t warning -m 'Salir de sway?' -b 'Sí, salir' 'swaymsg exit'  # Salir de sway (con confirmación)
+
+### ------------------------------------------------------------------
+### BARRA DE ESTADO
+### ------------------------------------------------------------------
+# Gestiona: barra superior con espacios de trabajo, reloj, indicadores
+# de red/batería/volumen, etc.
+# Programas: waybar.
+
+bar {
+    swaybar_command waybar
+}
+
+### ------------------------------------------------------------------
+### NOTIFICACIONES
+### ------------------------------------------------------------------
+# Gestiona: demonio de notificaciones de escritorio (popups).
+# Programas: mako.
+
+exec mako
+
+### ------------------------------------------------------------------
+### APPLET DE RED (NetworkManager)
+### ------------------------------------------------------------------
+# Gestiona: icono y menú de redes wifi/ethernet en bandeja.
+# Programas: network-manager-applet (nm-applet).
+
+exec nm-applet --indicator
+
+### ------------------------------------------------------------------
+### APPLET DE BLUETOOTH
+### ------------------------------------------------------------------
+# Gestiona: icono y menú de dispositivos bluetooth en bandeja.
+# Programas: blueman.
+
+exec blueman-applet
+
+### ------------------------------------------------------------------
+### POLKIT (autenticación gráfica para acciones privilegiadas)
+### ------------------------------------------------------------------
+# Gestiona: diálogos de contraseña al ejecutar acciones que requieren
+# privilegios elevados desde apps gráficas (ej. instalar flatpaks).
+# Programas: mate-polkit.
+
+exec /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 2>/dev/null || \
+     exec /usr/lib/mate-polkit/polkit-mate-authentication-agent-1
+
+### ------------------------------------------------------------------
+### CORRECCIÓN DE TEMPERATURA DE COLOR (modo nocturno)
+### ------------------------------------------------------------------
+# Gestiona: ajuste automático de temperatura de color según hora del día.
+# Programas: gammastep.
+
+exec gammastep
+
+### ------------------------------------------------------------------
+### SONIDO: volumen, mute, micrófono (teclas físicas F-keys)
+### ------------------------------------------------------------------
+# Gestiona: control de volumen de altavoces y silenciar micrófono
+# usando las teclas multimedia físicas estándar de laptop.
+# Programas: pamixer.
+
+bindsym --locked XF86AudioRaiseVolume exec pamixer -i 5  # Subir volumen
+bindsym --locked XF86AudioLowerVolume exec pamixer -d 5  # Bajar volumen
+bindsym --locked XF86AudioMute exec pamixer -t  # Silenciar/activar altavoces
+bindsym --locked XF86AudioMicMute exec pamixer --default-source -t  # Silenciar/activar micrófono
+
+# Control gráfico detallado de audio (entradas/salidas, por aplicación)
+bindsym $mod+Shift+v exec pavucontrol  # Abrir control gráfico de audio
+
+### ------------------------------------------------------------------
+### PANTALLA: brillo (teclas físicas F-keys)
+### ------------------------------------------------------------------
+# Gestiona: control de brillo de pantalla usando teclas multimedia
+# físicas estándar de laptop.
+# Programas: brightnessctl.
+
+bindsym --locked XF86MonBrightnessUp exec brightnessctl set +5%  # Subir brillo
+bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-  # Bajar brillo
+
+### ------------------------------------------------------------------
+### CAPTURAS DE PANTALLA
+### ------------------------------------------------------------------
+# Gestiona: captura de pantalla completa o de una región seleccionada.
+# Programas: grim, slurp, wl-clipboard.
+
+bindsym Print exec grim "$HOME/Pictures/screenshot_$(date +%Y%m%d_%H%M%S).png"  # Captura de pantalla completa
+bindsym $mod+Print exec grim -g "$(slurp)" - | wl-copy  # Captura de región seleccionada (al portapapeles)
+
+### ------------------------------------------------------------------
+### BLOQUEO DE PANTALLA
+### ------------------------------------------------------------------
+# Gestiona: bloqueo manual de sesión.
+# Programas: swaylock.
+
+bindsym $mod+l exec swaylock  # Bloquear pantalla
+
+### ------------------------------------------------------------------
+### INACTIVIDAD, SUSPENSIÓN E HIBERNACIÓN AUTOMÁTICAS
+### ------------------------------------------------------------------
+# Gestiona: bloqueo automático tras inactividad, apagado de pantalla,
+# y suspensión-con-hibernación automática tras inactividad prolongada
+# (requiere swap configurado, ya confirmado por el usuario).
+# Programas: swayidle, swaylock.
+
+exec swayidle -w \
+    timeout 300 'swaylock -f' \
+    timeout 600 'swaymsg "output * power off"' \
+    resume 'swaymsg "output * power on"' \
+    timeout 1800 'systemctl suspend-then-hibernate' \
+    before-sleep 'swaylock -f'
+
+### ------------------------------------------------------------------
+### TAPA DEL PORTÁTIL (lid switch)
+### ------------------------------------------------------------------
+# Gestiona: comportamiento al cerrar la tapa (suspender + bloquear).
+# Programas: swaylock, systemd (systemctl).
+
+bindswitch --locked lid:on exec swaylock -f && systemctl suspend  # Bloquear y suspender al cerrar la tapa
+
+### ------------------------------------------------------------------
+### MENÚ DE APAGADO / REINICIO / SUSPENSIÓN / HIBERNACIÓN (gráfico)
+### ------------------------------------------------------------------
+# Gestiona: menú visual con botones para apagar, reiniciar, suspender,
+# hibernar o cerrar sesión.
+# Programas: wlogout.
+
+bindsym $mod+Escape exec wlogout  # Abrir menú de apagado/reinicio/suspensión
+
+### ------------------------------------------------------------------
+### MODO DE RESPALDO: apagado/reinicio/suspensión por teclado
+### ------------------------------------------------------------------
+# Gestiona: alternativa 100% por teclado al menú gráfico de wlogout,
+# por si wlogout no está disponible o se prefiere evitar el mouse.
+# Programas: systemd (systemctl), sway (swaymsg).
+
+set $mode_system Sistema: (l) bloquear, (e) salir de sway, (s) suspender, (h) hibernar, (r) reiniciar, (p) apagar
+mode "$mode_system" {
+    bindsym l exec swaylock -f, mode "default"  # Bloquear pantalla
+    bindsym e exec swaymsg exit, mode "default"  # Salir de sway
+    bindsym s exec systemctl suspend, mode "default"  # Suspender
+    bindsym h exec systemctl hibernate, mode "default"  # Hibernar
+    bindsym r exec systemctl reboot, mode "default"  # Reiniciar
+    bindsym p exec systemctl poweroff, mode "default"  # Apagar
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+Shift+Escape mode "$mode_system"  # Abrir modo de respaldo de sistema (sin mouse)
+
+### ------------------------------------------------------------------
+### NAVEGADOR
+### ------------------------------------------------------------------
+# Gestiona: atajo directo para abrir el navegador Brave.
+# Programas: brave-browser (instalado vía scripts/install_brave.sh).
+# NOTA: si todavía no ejecutaste ese script, este atajo no funcionará
+# hasta que instales Brave manualmente.
+
+bindsym $mod+w exec brave-browser  # Abrir navegador Brave
+
+### ------------------------------------------------------------------
+### GESTOR DE ARCHIVOS
+### ------------------------------------------------------------------
+# Gestiona: atajo directo para abrir el gestor de archivos gráfico.
+# Programas: nemo.
+
+bindsym $mod+e exec nemo  # Abrir gestor de archivos (Nemo)
+
+### ------------------------------------------------------------------
+### INCLUSIÓN DE CONFIGURACIONES ADICIONALES (opcional)
+### ------------------------------------------------------------------
+# Permite agregar archivos .conf sueltos en config/sway/config.d/ sin
+# tener que editar este archivo principal. Sway ignora el include si
+# la carpeta no existe, así que es seguro dejarlo aquí siempre.
+
+include /etc/sway/config.d/*

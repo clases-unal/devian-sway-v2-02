@@ -1,0 +1,37 @@
+# =============================================================================
+# packages/office.txt
+# =============================================================================
+# TeXStudio + TeX Live mínimo pero funcional. Suficiente para:
+#   - Presentaciones con la clase beamer
+#   - Documentos de texto regulares (PDFs con tablas, ecuaciones)
+#   - Inserción de código fuente con resaltado de sintaxis (listings/minted)
+#
+# Deliberadamente NO se usa texlive-full (instala miles de paquetes que no
+# necesitas, varios GB de disco). Esta selección cubre el 95% de los casos
+# de uso de un usuario que escribe documentos y presentaciones académicas.
+# =============================================================================
+
+# --- Editor LaTeX con vista previa integrada ------------------------------
+texstudio
+
+# --- Núcleo de LaTeX (clases base, paquetes esenciales) -------------------
+texlive-latex-base
+texlive-latex-recommended
+
+# --- Incluye beamer (presentaciones), y la mayoría de paquetes comunes
+# que cualquier documento normal termina necesitando (tablas avanzadas,
+# colores, hyperref, geometry, etc.) --------------------------------------
+texlive-latex-extra
+
+# --- Fuentes recomendadas para LaTeX --------------------------------------
+texlive-fonts-recommended
+
+# --- Soporte para gráficos/diagramas (TikZ, pgf ya viene en latex-extra,
+# esto añade paquetes adicionales de figuras) ------------------------------
+texlive-pictures
+
+# --- Paquetes de ciencias: notación matemática avanzada, física, química -
+texlive-science
+
+# --- Conversión y utilidades extra de TeX (latexmk para compilar fácil) --
+texlive-extra-utils
